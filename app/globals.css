@@ -18,10 +18,74 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  /* background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb)); */
+}
+
+.modal-mask {
+  opacity: 0.8;
+}
+
+.modal-enter .modal-mask {
+  opacity: 0;
+}
+
+.modal-enter-active .modal-mask {
+  transition: all;
+  transition-duration: 300ms;
+  opacity: 0.8;
+}
+
+.modal-exit-active .modal-mask {
+  transition: all;
+  transition-duration: 300ms;
+  opacity: 0;
+}
+
+.modal-content {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.modal-enter .modal-content {
+  transform: translateY(100%);
+  opacity: 0;
+}
+
+.modal-enter-active .modal-content {
+  transition: all;
+  transition-duration: 300ms;
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.modal-exit-active .modal-content {
+  transition: all;
+  transition-duration: 300ms;
+  transform: translateY(100%);
+  opacity: 0;
+}
+
+@media (min-width: 768px) {
+  .modal-content {
+    transform: translate(-50%, 50%);
+    opacity: 1;
+  }
+
+  .modal-enter .modal-content {
+    transform: translate(-50%, 100%);
+    opacity: 0;
+  }
+
+  .modal-enter-active .modal-content {
+    transition: all;
+    transition-duration: 300ms;
+    transform: translate(-50%, 50%);
+    opacity: 1;
+  }
+
+  .modal-exit-active .modal-content {
+    transition: all;
+    transition-duration: 300ms;
+    transform: translate(-50%, 100%);
+    opacity: 0;
+  }
 }
