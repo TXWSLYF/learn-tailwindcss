@@ -11,6 +11,7 @@ type Props = {
   onCancel?: () => void;
 };
 
+// https://dev.to/link2twenty/react-using-portals-to-make-a-modal-2kdf
 function Modal({ children, open, title, onOk, onCancel }: Props) {
   const [mounted, setMounted] = useState(false);
   const [active, setActive] = useState(false);
@@ -58,9 +59,12 @@ function Modal({ children, open, title, onOk, onCancel }: Props) {
 
       <div
         className={cn(
-          "bottom-0 w-full fixed bg-white rounded-t-lg md:w-[37.5rem] md:bottom-1/2 md:left-1/2 md:-translate-x-1/2 md:translate-y-1/2 opacity-0 transition-opacity duration-300",
+          "bottom-0 w-full fixed bg-white rounded-t-lg md:w-[37.5rem] md:bottom-1/2 md:left-1/2 md:-translate-x-1/2 opacity-0 translate-y-full ",
           {
+            "duration-300 transition transition-[opacity, transform]":
+              active || open,
             "opacity-100": active && open,
+            "!translate-y-0 md:!translate-y-1/2": active && open,
           }
         )}
       >
