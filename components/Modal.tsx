@@ -1,8 +1,9 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import Button from "./Button";
 import cn from "classnames";
 import { CSSTransition } from "react-transition-group";
+import { COMMON } from "./common";
 
 type Props = {
   children: React.ReactNode;
@@ -14,30 +15,23 @@ type Props = {
 
 // https://dev.to/link2twenty/react-using-portals-to-make-a-modal-2kdf
 function Modal({ children, open, title, onOk, onCancel }: Props) {
-  const [mounted, setMounted] = useState(false);
   const nodeRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    setMounted(true);
-
-    return () => setMounted(false);
-  }, []);
-
-  useEffect(() => {
-    if (!mounted) return;
-
     if (open) {
       document.body.classList.add("overflow-hidden");
+      COMMON.modalCount++;
     } else {
-      document.body.classList.remove("overflow-hidden");
+      if (COMMON.modalCount > 0) {
+        COMMON.modalCount--;
+      }
+      if (COMMON.modalCount === 0) {
+        document.body.classList.remove("overflow-hidden");
+      }
     }
 
-    return () => {
-      document.body.classList.remove("overflow-hidden");
-    };
-  }, [mounted, open]);
-
-  if (!mounted) return null;
+    console.log(COMMON.modalCount)
+  }, [open]);
 
   return (
     <CSSTransition
